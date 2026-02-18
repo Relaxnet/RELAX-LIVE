@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZeroLAG - لوحة التحكم</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="http://news.zerolagvpn.com:3000/public/ads-images/style2.css" rel="stylesheet">
+    <style>
+        /* تنسيقات الأقسام المتقدمة */
+        #advancedTabsContent .tab-pane {
+            display: none;
+        }
+        
+        #advancedTabsContent .tab-pane.show.active {
+            display: block !important;
+        }
+        
+        /* تنسيقات الأزرار */
+        .btn-group .btn {
+            margin: 0 2px;
+        }
+        
+        /* تنسيقات البطاقات */
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        /* تنسيقات النماذج */
+        .advanced-settings-form {
+            padding: 20px 0;
+        }
+        
+        /* تنسيقات التنبيهات */
+        .alert {
+            margin-bottom: 20px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- زر إظهار/إخفاء القائمة الجانبية للشاشات الصغيرة -->
+    <button class="btn btn-primary toggle-sidebar d-lg-none">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- القائمة الجانبية -->
+    <aside class="sidebar">
+        <div class="logo-section mb-4">
+            <img src="img\logo.png" alt="ZeroLAG" class="logo">
+            <div class="brand-text">
+                <h1>لوحة التحكم</h1>
+                <span class="tagline">لأنك معنا هذا يعني الكثير</span>
+                    </div>
+                    </div>
+        <nav class="sidebar-nav">
+            <a href="#home" class="nav-link active">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
+            </a>
+            <a href="#reports" class="nav-link">
+                <i class="fas fa-chart-bar"></i>
+                <span>التقارير</span>
+            </a>
+            <a href="#advanced-settings" class="nav-link">
+                <i class="fas fa-cogs"></i>
+                <span>ضبط متقدم</span>
+            </a>
+            <a href="index.html" class="nav-link live-stream-link" target="_blank" id="liveStreamLink">
+                <i class="fas fa-play-circle"></i>
+                <span>البث المباشر</span>
+            </a>
+            <a href="#" class="nav-link logout-btn" onclick="App.Auth.logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>تسجيل الخروج</span>
+            </a>
+        </nav>
+
+        <div class="user-info mt-auto p-3" id="userInfoHeader">
+            <!-- سيتم تعبئة معلومات المستخدم هنا -->
+                </div>
+    </aside>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-wrapper">
+        <div class="container-fluid">
+            <!-- نموذج تسجيل الدخول -->
+            <div id="loginForm" class="auth-page">
+                <div class="auth-container">
+                    <div class="auth-header">
+                        <img src="img\logo.png" alt="ZeroLAG" class="auth-logo">
+                        <h1 class="auth-title">ZeroLAG</h1>
+                        <p class="auth-subtitle">لأنك معنا هذا يعني الكثير</p>
+            </div>
+                    <div class="auth-body">
+                        <form id="login-form" class="auth-form">
+                            <div class="form-group">
+                                <label class="form-label">اسم المستخدم</label>
+                                <div class="input-group">
+                                    <i class="fas fa-user input-icon"></i>
+                                    <input type="text" 
+                                           name="username" 
+                                           class="form-control" 
+                                           placeholder="أدخل اسم المستخدم" 
+                                           autocomplete="username" 
+                                           required>
+        </div>
+    </div>
+                            <div class="form-group">
+                                <label class="form-label">كلمة المرور</label>
+                                <div class="input-group">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input type="password" 
+                                           name="password" 
+                                           class="form-control" 
+                                           placeholder="أدخل كلمة المرور" 
+                                           autocomplete="current-password" 
+                                           required>
+                    </div>
+                                </div>
+                            <div id="login-error" class="alert d-none">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span></span>
+                            </div>
+                            <button type="submit" class="btn-login">
+                                <i class="fas fa-sign-in-alt"></i>
+                                <span>تسجيل الدخول</span>
+                            </button>
+                        </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- لوحة التحكم -->
+        <div id="dashboard" class="d-none">
+                <div class="section-container">
+                    <!-- المحتوى الرئيسي -->
+                    <div class="tab-content" id="mainTabsContent">
+                <!-- القسم الرئيسي -->
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4><i class="fas fa-user"></i> معلومات العميل</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="customer-info">
+                                <!-- سيتم تعبئة معلومات العميل هنا -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- قسم التقارير -->
+                <div class="tab-pane fade" id="reports" role="tabpanel" aria-labelledby="reports-tab">
+                    <div id="reports-container">
+    <!-- سيتم تحديث هذا القسم تلقائياً بواسطة JavaScript -->
+</div>
+                    <!-- تحديث قسم التصفية -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- إضافة قسم الضبط المتقدم -->
+                <div id="advanced-settings" class="tab-pane fade">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4><i class="fas fa-cogs"></i> الضبط المتقدم</h4>
+                        </div>
+                        <div class="card-body">
+                            <!-- أزرار التنقل في قسم الضبط المتقدم -->
+                            <div class="btn-group w-100 mb-4" role="group">
+                                <button type="button" class="btn btn-outline-primary" data-section="line-customization">
+                                    <i class="fas fa-network-wired"></i> تخصيص خط
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" data-section="speed-isolation">
+                                    <i class="fas fa-tachometer-alt"></i> عزل سرعة
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" data-section="free-streaming">
+                                    <i class="fas fa-play-circle"></i> بث مجاني
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" data-section="remove-settings">
+                                    <i class="fas fa-trash-alt"></i> حذف الإعدادات
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" data-section="update-ips">
+                                    <i class="fas fa-sync"></i> تحديث العناوين
+                                </button>
+                            </div>
+
+                            <!-- محتوى الأقسام -->
+                            <div class="advanced-sections">
+                                <!-- قسم تخصيص الخط -->
+                                <div id="line-customization-section" class="advanced-section">
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle"></i>
+                                        <strong>تعليمات:</strong> يمكنك الحصول على نتائج أفضل عند تخصيص خط للبث المباشر.
+                                    </div>
+                                    <div class="advanced-settings-form">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">إصدار MikroTik</label>
+                                                <select class="form-select" id="mikrotikVersion">
+                                                    <option value="6">الإصدار 6</option>
+                                                    <option value="7">الإصدار 7</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">عدد الخطوط</label>
+                                                <select class="form-select" id="lineCount">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12" id="lineFields"></div>
+                                            <div class="col-12">
+                                                <button type="button" class="btn btn-primary" onclick="App.Advanced.generateMultiLineScript()">
+                                                    <i class="fas fa-code"></i> توليد الكود
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="output-routing" class="mt-3" style="display: none;">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">الكود المولد</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre class="bg-light p-3 rounded"><code id="generatedCodeRouting"></code></pre>
+                                                <button class="btn btn-success" onclick="App.Advanced.copyToClipboard('generatedCodeRouting')">
+                                                    <i class="fas fa-copy"></i> نسخ الكود
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- قسم عزل السرعة -->
+                                <div id="speed-isolation-section" class="advanced-section" style="display: none;">
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle"></i>
+                                        <strong>تعليمات:</strong> يمكنك استثناء تقييد سرعة مشاهدة البث المباشر والحصول على سرعة أكبر.
+                                    </div>
+                                    <div class="advanced-settings-form">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">إصدار MikroTik</label>
+                                                <select class="form-select" id="mikrotikVersionSpeed">
+                                                    <option value="6">الإصدار 6</option>
+                                                    <option value="7">الإصدار 7</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">نظام التقسيم</label>
+                                                <select class="form-select" id="divisionType">
+                                                    <option value="systematic">نظامي</option>
+                                                    <option value="independent">مستقل</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="button" class="btn btn-primary" onclick="App.Advanced.generateSpeedScript()">
+                                                    <i class="fas fa-code"></i> توليد الكود
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="output-speed" class="mt-3" style="display: none;">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">الكود المولد</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre class="bg-light p-3 rounded"><code id="generatedCodeSpeed"></code></pre>
+                                                <button class="btn btn-success" onclick="App.Advanced.copyToClipboard('generatedCodeSpeed')">
+                                                    <i class="fas fa-copy"></i> نسخ الكود
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- قسم البث المجاني -->
+                                <div id="free-streaming-section" class="advanced-section" style="display: none;">
+                                    <div class="alert alert-warning">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        <strong>تنبيه:</strong> احتساب تكلفة الجيجا للبث المباشر سيكون على حسابك وليس على حساب المشتركين.
+                                    </div>
+                                    <div class="advanced-settings-form">
+                                        <button type="button" class="btn btn-primary" onclick="App.Advanced.generateFreeStreamingScript()">
+                                            <i class="fas fa-code"></i> توليد الكود
+                                        </button>
+                                    </div>
+                                    <div id="output-free-streaming" class="mt-3" style="display: none;">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">الكود المولد</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre class="bg-light p-3 rounded"><code id="generatedCodeFreeStreaming"></code></pre>
+                                                <button class="btn btn-success" onclick="App.Advanced.copyToClipboard('generatedCodeFreeStreaming')">
+                                                    <i class="fas fa-copy"></i> نسخ الكود
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- قسم حذف الإعدادات -->
+                                <div id="remove-settings-section" class="advanced-section" style="display: none;">
+                                    <div class="alert alert-danger">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <strong>تحذير:</strong> سيتم حذف جميع إعدادات البث من الراوتر.
+                                    </div>
+                                    <div class="advanced-settings-form">
+                                        <button type="button" class="btn btn-danger" onclick="App.Advanced.generateRemoveScript()">
+                                            <i class="fas fa-trash-alt"></i> توليد كود الحذف
+                                        </button>
+                                    </div>
+                                    <div id="output-script" class="mt-3" style="display: none;">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">الكود المولد</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre class="bg-light p-3 rounded"><code id="generatedScript"></code></pre>
+                                                <button class="btn btn-success" onclick="App.Advanced.copyToClipboard('generatedScript')">
+                                                    <i class="fas fa-copy"></i> نسخ الكود
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- قسم تحديث العناوين -->
+                                <div id="update-ips-section" class="advanced-section" style="display: none;">
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle"></i>
+                                        <strong>تعليمات:</strong> قم بتحديث قائمة عناوين السيرفرات للحصول على أحدث القائمة.
+                                    </div>
+                                    <div class="advanced-settings-form">
+                                        <button type="button" class="btn btn-primary" onclick="App.Advanced.updateIPList()">
+                                            <i class="fas fa-sync"></i> تحديث العناوين
+                                        </button>
+                                    </div>
+                                    <div id="output-ips" class="mt-3" style="display: none;">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">قائمة العناوين</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <pre class="bg-light p-3 rounded"><code id="ipList"></code></pre>
+                                                <button class="btn btn-success" onclick="App.Advanced.copyToClipboard('ipList')">
+                                                    <i class="fas fa-copy"></i> نسخ القائمة
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </main>
+
+    <!-- نموذج تحديث البيانات -->
+    <div id="profileFormContainer">
+        <div class="modal fade" id="updateProfileModal" tabindex="-1" aria-labelledby="updateProfileModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateProfileModalLabel">تحديث بيانات الحساب</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                         <div class="instructions">
+                <i class="fas fa-info-circle"></i>
+                <strong>تعليمات هامة:</strong>
+                <ul class="mt-2 mb-0">
+                    <li>   يمكنك تغير بيانات الدخول الى لوحة التحكم مرة واحدة فقط.</li>
+                </ul>
+            </div>
+                    <div class="modal-body">
+                        <form id="profile-form" class="profile-form">
+                            <div class="form-group mb-3">
+                                <label for="username" class="form-label">اسم المستخدم</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                    <input type="text" class="form-control" id="username" name="username" required>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="password" class="form-label">كلمة المرور</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="confirm_password" class="form-label">تأكيد كلمة المرور</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                            </div>
+                            </div>
+                            <div class="alert alert-danger d-none" id="profile-error">
+                                <span></span>
+                            </div>
+                                        <div class="form-group mb-3">
+                                <label for="phone" class="form-label">رقم الهاتف</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-phone"></i>
+                                    </span>
+                                    <input type="tel" class="form-control" id="phone" name="phone">
+                                </div>
+                            </div>
+                            <div class="modal-footer border-0 px-0 pb-0">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> حفظ التغييرات
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- مؤشر التحميل -->
+    <div class="loading-overlay" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- تحميل السكربتات -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="http://news.zerolagvpn.com:3000/public/ads-images/app.js"></script>
+
+</body>
+</html> 
