@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>منصة البث المباشر</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css"><style>.modal {
+  display: none; /* مخفي افتراضيًا */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  margin: 20% auto;
+  width: 350px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.modal-content button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background: #45a049;
+}</style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="header-left">
+                <h1 class="logo">
+                    <img src="img\logo2.png" alt="RelaxLive">
+                </h1>
+                <button class="settings-btn" onclick="toggleSettings()">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+            <div class="ticker-wrapper">
+                <div class="ticker" id="ticker-content">
+                    <!-- سيتم تحميل محتوى التيكر هنا -->
+                </div>
+            </div>
+        </header>
+
+        <div class="matches-button-container">
+            <button class="matches-button" onclick="toggleMatchesModal()">
+                <i class="fas fa-futbol"></i>
+                جدول المباريات
+            </button>
+            <div class="matches-slider">
+                <div class="matches-slider-content" id="matches-slider">
+                    <!-- سيتم إضافة المباريات هنا -->
+                </div>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <div class="player-wrapper">
+                <video id="video-player" poster="img/logo2.png" preload="auto" style="width: 100%; height: 100%;">
+                    <p>متصفحك لا يدعم عنصر الفيديو أو أن JavaScript غير مفعل.</p>
+                </video>
+                <div class="player-loading-spinner" style="display: none;"></div>
+                <div class="custom-controls-container">
+                    <div class="controls-left">
+                        <button class="control-button play-pause-button" title="تشغيل/إيقاف">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <div class="volume-controls">
+                            <button class="control-button volume-button" title="كتم/إلغاء الكتم">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                            <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1">
+                        </div>
+                    </div>
+                    <div class="controls-center">
+                        <span class="time-display current-time">0:00</span>
+                        <div class="progress-bar-container">
+                            <div class="buffer-bar"></div>
+                            <input type="range" class="progress-bar" min="0" value="0" step="0.1">
+                        </div>
+                        <span class="time-display total-time">0:00</span>
+                    </div>
+                    <div class="controls-right">
+                        <div class="quality-control-wrapper" style="position: relative;">
+                            <button id="quality-button" class="control-button">الجودة</button>
+                            <ul id="quality-menu" class="quality-menu-list"></ul>
+                        </div>
+                        <button class="control-button pip-button" title="صورة داخل صورة">
+                            <i class="fas fa-window-restore"></i>
+                        </button>
+                        <button class="control-button fullscreen-button" title="ملء الشاشة/إنهاء">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <aside class="sidebar" id="channels-list">
+                <!-- سيتم إضافة القنوات هنا -->
+            </aside>
+        </main>
+
+        <footer class="footer">
+            <div class="developer">
+                <span>إعداد المهندس/محمد راجح</span>
+                <a href="https://wa.me/967773035071" target="_blank" class="social-link">
+                    <i class="fas fa-globe"></i>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61559554002591" target="_blank" class="social-link">
+                    <i class="fab fa-facebook"></i>
+                </a>
+            </div>
+            <div class="social-links">
+                <a href="tel:773035071" style="color:white;text-decoration:none;">
+                    <h5>للإستفسار: 773035071</h5>
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <div class="matches-modal" id="matches-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fas fa-futbol"></i>
+                    جدول المباريات
+                </div>
+                <button class="close-modal" onclick="toggleMatchesModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="matches-grid" id="matches-container">
+                <!-- سيتم تحميل المباريات هنا -->
+            </div>
+        </div>
+    </div>
+
+    <!-- نموذج اشتراك للمالك --><div id="subscription-modal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000;">
+    <div class="modal-content" style="background: white; padding: 20px; margin: 20% auto; width: 350px; border-radius: 10px; text-align: center;">
+        <h2>اشتراك صاحب الشبكة</h2>
+        <p>اختر خطة الاشتراك المناسبة</p>
+        <input type="text" id="serial-number" placeholder="Serial Number (مثل: ABC12345/678)" required>
+        <input type="tel" id="phone-number" placeholder="رقم الهاتف (مثل: +967773035071)" required>
+        <select id="subscription-plan" required>
+            <option value="" disabled selected>اختر خطة الاشتراك</option>
+            <option value="7days">7 أيام - $5</option>
+            <option value="30days">30 يومًا - $15</option>
+            <option value="90days">90 يومًا - $40</option>
+            <option value="180days">180 يومًا - $70</option>
+        </select>
+        <input type="password" id="password" placeholder="كلمة مرور للأمان" required>
+        <button id="subscribe-btn">طلب الاشتراك</button>
+        <button id="renew-btn">تجديد الاشتراك</button>
+        <button onclick="document.getElementById('subscription-modal').style.display = 'none';">إغلاق</button>
+    </div>
+</div>
+    <div id="loading" class="loading-overlay" style="display: none;background: url('../bg1.jpg');background: radial-gradient(circle, rgba(138, 43, 226, 0.8) 0%, rgba(44, 0, 62, 0.8) 100%);">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <span class="zero">Relax</span><span class="lag">Live</span>
+            </div>
+            <img src="./img/logo2.png" width="30%" alt="relax">
+            <div class="developer-credit" style="text-decoration: none; color: white; padding: 5px; font-size:12px;color:white;">
+                <div class="progress-message">جاري تحميل البيانات</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">0%</div>
+            </div>
+            <a href="tel:773035071" style="text-decoration: none; color: white; padding: 5px;border: 1px solid; border-radius: 10px;font-size:12px;background: radial-gradient(circle, #8a2be2 0%, #2c003e 100%);">
+                <span>تطوير وبرمجة المهندس/ محمد راجح 773035071</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- تحميل المكتبات الخارجية -->
+    <script src="js/flv.min.js"></script>
+    <script src="js/hls.min.js"></script>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
